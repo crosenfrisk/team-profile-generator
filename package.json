@@ -26,5 +26,8 @@
   "homepage": "https://github.com/crosenfrisk/team-profile-generator#readme",
   "dependencies": {
     "inquirer": "^8.2.0"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
   }
 }
