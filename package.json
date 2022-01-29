@@ -1,0 +1,30 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "Create an html page to display team member profile summaries.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crosenfrisk/team-profile-generator.git"
+  },
+  "keywords": [
+    "team",
+    "profile",
+    "generator"
+  ],
+  "author": "Claire Rosenfrisk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/crosenfrisk/team-profile-generator/issues"
+  },
+  "homepage": "https://github.com/crosenfrisk/team-profile-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  }
+}
