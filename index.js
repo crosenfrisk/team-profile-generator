@@ -27,7 +27,7 @@ const promptUser = () => {
   ]);
 }
 
-const promptProject = () => {
+const promptAddTeamMember = (profileData) => {
     console.log(`
   =======================
    Add a New Team Member
@@ -48,7 +48,7 @@ const promptProject = () => {
         type: 'list',
         name: 'role',
         message: 'What is the role of your employee?',
-        choices: ['Manager', 'Engineer', 'Intern']
+        choices: ['Engineer', 'Intern']
       },
       {
         type: 'input',
@@ -62,14 +62,24 @@ const promptProject = () => {
         default: false
       }
     ]);
+
   };
 
+
 promptUser()
-.then(answers => console.log(answers));
+.then(promptAddTeamMember)
+.then(answers => console.log(answers))
+.then(profileData => {
+  profileData.push(profileData);
+  // If there's no 'projects' array property, create one
+      if (!profileData) {
+        profileData = [];
+      }
+});
 
 
-fs.writeFile('.dist/index.html', generatePage(), err => {
-    if (err) throw err;
+// fs.writeFile('.dist/index.html', generatePage(), err => {
+//     if (err) throw err;
   
-    console.log('Team Webpage complete! Check out index.html to see the output!');
-  });
+//     console.log('Team Webpage complete! Check out index.html to see the output!');
+//   });
