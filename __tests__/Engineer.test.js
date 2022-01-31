@@ -1,6 +1,5 @@
 const Engineer = require('../lib/Engineer.js');
 const Employee = require('../lib/Employee.js');
-const { expect } = require('@jest/globals');
 
 test('Using Employee properties, Engineer should have name, id, email, and github username', () => {
   const engineer = new Engineer('Harold');
