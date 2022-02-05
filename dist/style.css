@@ -1,0 +1,36 @@
+header {
+    background-color: #e84756;
+}
+
+h1 {
+    font-size: large;
+    color: #ffffff;
+    text-shadow: 2px, 2px, 0px;
+}
+
+.card-body {
+    background-color: #0077f7;
+}
+
+.card-title {
+    font-size: large;
+    color: #ffffff;
+}
+
+.card-text {
+    font-size: medium;
+    color: #ffffff;
+}
+
+.list-group {
+    background-color: #f6f7f9;
+}
+
+.list-group-item{
+    font-size: smaller;
+    color: #000000;
+}
+
+#link{
+    color: #0077f7;
+}
