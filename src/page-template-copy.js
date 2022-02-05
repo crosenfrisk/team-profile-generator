@@ -28,9 +28,9 @@ const generatePage = (team) => {
           <div class="row">
             <div class="col-sm-6">
               <div class="card" style="width: 18rem;">
-                <div class="card-body" $red-400>
+                <div class="card-body">
                   <h5 class="card-title">${Manager.name}</h5>
-                  <p class="card-text" $white ><img src="../images/svg/star-solid.svg">${Manager.role}</p>
+                  <p class="card-text"><img src="../images/svg/star-solid.svg">${Manager.role}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">Employee ID: ${Manager.id}</li>
@@ -44,7 +44,7 @@ const generatePage = (team) => {
               <div class="card" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">${Engineer.name}</h5>
-                  <p class="card-text"><img src="../images/svg/star-solid.svg">${Engineer.role}</p>
+                  <p class="card-text"><img src="../images/svg/glasses-solid.svg">${Engineer.role}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">Employee ID: ${Engineer.id}</li>
@@ -58,7 +58,7 @@ const generatePage = (team) => {
               <div class="card" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">${Intern.name}</h5>
-                  <p class="card-text"><img src="../images/svg/star-solid.svg">${Intern.role}</p>
+                  <p class="card-text"><img src="../images/svg/user-graduate-solid.svg">${Intern.role}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">Employee ID: ${Intern.id}</li>
