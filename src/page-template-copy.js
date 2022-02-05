@@ -1,31 +1,18 @@
-// ALL OF THIS IS FROM PROFILE GENERATOR TEMPLATE
-//
-
-const Employee = require("../lib/Employee");
-const Engineer = require("../lib/Engineer");
-const Intern = require("../lib/Intern");
-const Manager = require("../lib/Manager");
-
-const generatePage = () => {
+const generatePage = (team) => {
+  console.log('testing generatePage');
     return `
         
     <!DOCTYPE html> 
     <html lang="en"> 
       <head>
     
-        <!--Required Meta Tags-->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-        <!--Bootstrap CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-        <!--Font Awesome CSS-->
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-        
-        <!--Project Stylesheet-->
-        <link rel="stylesheet" link ref="dist/style.css">
+
+        <link rel="stylesheet" href="dist/style.css">
         
         <title> My Team Profile </title>
       </head>
@@ -38,13 +25,12 @@ const generatePage = () => {
       
         <main>
     
-          <!-- Card Columns -->
           <div class="row">
             <div class="col-sm-6">
               <div class="card" style="width: 18rem;">
-                <div class="card-body">
+                <div class="card-body" $red-400>
                   <h5 class="card-title">${Manager.name}</h5>
-                  <p class="card-text"><img src="images\svg\star-solid.svg">${Manager.role}</p>
+                  <p class="card-text" $white ><img src="../images/svg/star-solid.svg">${Manager.role}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">Employee ID: ${Manager.id}</li>
@@ -53,14 +39,12 @@ const generatePage = () => {
                 </ul>
               </div>
             </div>
-          </div>
-    
-          <div class="row">
+      
             <div class="col-sm-6">
               <div class="card" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">${Engineer.name}</h5>
-                  <p class="card-text"><img src="images\svg\star-solid.svg">${Engineer.role}</p>
+                  <p class="card-text"><img src="../images/svg/star-solid.svg">${Engineer.role}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">Employee ID: ${Engineer.id}</li>
@@ -69,14 +53,12 @@ const generatePage = () => {
                 </ul>
               </div>
             </div>
-          </div>
-    
-          <div class="row">
+      
             <div class="col-sm-6">
               <div class="card" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">${Intern.name}</h5>
-                  <p class="card-text"><img src="images\svg\star-solid.svg">${Intern.role}</p>
+                  <p class="card-text"><img src="../images/svg/star-solid.svg">${Intern.role}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">Employee ID: ${Intern.id}</li>
@@ -90,7 +72,6 @@ const generatePage = () => {
         </main>
       
       </body>
-      <script src="src\page-template-copy.js"></script>
     </html>
     
     `;
