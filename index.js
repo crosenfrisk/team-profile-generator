@@ -9,10 +9,10 @@ const { profile } = require('console');
 
 // TODO: Dynamically create role using classes 
 // Required Classes from ./lib
-// const Employee = require('./lib/Employee');
-// const Engineer = require('./lib/Engineer');
-// const Manager = require('./lib/Manager');
-// const Intern = require('./lib/Intern');
+const Employee = require('./lib/Employee');
+const Engineer = require('./lib/Engineer');
+const Manager = require('./lib/Manager');
+const Intern = require('./lib/Intern');
 
 // Array to store team members' information from prompts
 var team = [];
@@ -74,7 +74,9 @@ addEngineer = async () => {
       message: 'Enter the GitHub username for your engineer: (Required)'
     }
   ])
-  .then((answers) => {team.push(answers)})
+  .then((engineer) => {
+    const engineerInstance = new Engineer(engineer.name, engineer.id, engineer.email, engineer.github);
+    team.push(engineerInstance)})
   .then(() => {compileTeam()});
 }
 
@@ -116,7 +118,10 @@ addIntern = async () => {
       message: 'Enter the school name of your intern: (Required)'
     }
   ])
-  .then((answers) => {team.push(answers)})
+  .then((intern) => {
+    const internInstance = new Intern(intern.name, intern.id, intern.email, intern.school);
+    team.push(internInstance);
+  })
   .then(() => {compileTeam()});
 }
 
@@ -210,7 +215,10 @@ promptManager = async () => {
 
 // Run application once user types node index.js in command line
 promptManager()
- .then( () => {compileTeam()})  
+ .then( (manager) => {
+    const managerInstance = new Manager(manager.name, manager.id, manager.email, manager.officeNumber);
+    team.push(managerInstance);
+    compileTeam()})  
  .catch(err => {
     console.log(err);
   });
