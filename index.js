@@ -1,58 +1,157 @@
 // npm package
 const inquirer = require('inquirer');
 
-// classes
-const Employee = require('./lib/Employee');
-const Engineer = require('./lib/Engineer');
-const Manager = require('./lib/Manager');
-const Intern = require('./lib/Intern');
-
-// required files
+// Required file locations
 const fs = require('fs');
-const generatePage = require('./src/generate-site.js');
-const { writeFile, copyFile } = require('./src/generate-site.js');
+const generatePage = require('./src/page-template-copy');
+const { writeFile, copyFile } = require('./utils/generate-site');
 const { profile } = require('console');
-const { off } = require('process');
 
-// store team members' information from prompts
+// TODO: Dynamically create role using classes 
+// Required Classes from ./lib
+// const Employee = require('./lib/Employee');
+// const Engineer = require('./lib/Engineer');
+// const Manager = require('./lib/Manager');
+// const Intern = require('./lib/Intern');
+
+// Array to store team members' information from prompts
 var team = [];
 
-// command to write page using team information
-teamProfilePage = () => {
+// Command to write HTML page using team information
+teamProfilePage = async () => {
   writeFile(generatePage(team));
 };
 
-// to end program and communicate in console that profile is being created.
-finish = () => {
-  console.log('Your team profile is being generated!');
-  generatePage();
+// Root menu, Manager chooses additional employee roles to add, or finishes to exit application and generate HTML.
+menuOptions = async () => {
+  return inquirer.prompt([
+    {
+      type: 'list',
+      name: 'employeeRole',
+      message: 'Please choose a type of employee to add, or "Done" to complete input and generate profile page.',
+      choices: ['Engineer', 'Intern', 'Done'],
+    }
+  ])
+};
+
+// When adding more members, the Manager will select which role the employee is, and then answer proper questions for each.
+// For adding engineer(s)
+
+addEngineer = async () => {
+  return inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is the name of your team member? (Required)',
+      validate: addName => {
+        if (addName){
+          return true;
+        } else {
+          console.log('You must enter a name for your team member!');
+        }
+      }
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: 'What is the employee id for your team member? (Required)',
+      validate: addId => {
+         if (addId){
+          return true;
+        } else {
+          console.log('You must enter an employee id for your team member!');
+        }
+      }
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'Enter the email address of your employee. (Required)'
+    },
+    {
+      type: 'input',
+      name: 'github',
+      message: 'Enter the GitHub username for your engineer: (Required)'
+    }
+  ])
+  .then((answers) => {team.push(answers)})
+  .then(() => {compileTeam()});
 }
 
-// function to select additional employee type after manager, or finish program.
-displayTeamMembers = () => {
-  await menuConfirm()
+// For adding intern(s)
+addIntern = async () => {
+  return inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is the name of your team member? (Required)',
+      validate: addName => {
+        if (addName){
+          return true;
+        } else {
+          console.log('You must enter a name for your team member!');
+        }
+      }
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: 'What is the employee id for your team member? (Required)',
+      validate: addId => {
+         if (addId){
+          return true;
+        } else {
+          console.log('You must enter an employee id for your team member!');
+        }
+      }
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'Enter the email address of your employee. (Required)'
+    },
+    {
+      type: 'input',
+      name: 'internSchool',
+      message: 'Enter the school name of your intern: (Required)'
+    }
+  ])
+  .then((answers) => {team.push(answers)})
+  .then(() => {compileTeam()});
+}
+
+// End program and communicate in console that profile is being created.
+finish = async () => {
+  console.log('Your team profile is being generated!');
+  teamProfilePage();
+}
+
+compileTeam = () => {
+  // generate team profile using prompt answers
+  menuOptions()
   .then(answers => {
     if (answers.employeeRole === "Engineer"){
-      engineerQuestions();
+      addEngineer();
     }
 
     if (answers.employeeRole === "Intern"){
-      internQuestions();
+      addIntern();
     }
 
-    if (menuConfirm === false){
+    if (answers.employeeRole === "Done"){
       finish();
     }
   })
 }
 
 // first questions are for the manager, other functions follow to generate team members
-promptUser = () => {
+promptManager = async () => {
   console.log(`
   =============================================================================================================
   Welcome to the Team Profile Generator -- Please enter your information and a website will be created for you!
   =============================================================================================================
   `);
+
   return inquirer.prompt([
     {
         type: 'input',
@@ -95,7 +194,7 @@ promptUser = () => {
       },
       {
         type: 'input',
-        name: 'office number',
+        name: 'officeNumber',
         message: 'Please provide your office phone number: (Required)',
         validate: officeNumber => {
           if (officeNumber) {
@@ -106,134 +205,13 @@ promptUser = () => {
         }
       },
     ])
-    .then (({name, id, email, officeNumber}) => {
-      team.push(new Manager(name, id, email, officeNumber));
-      console.log(name);
-      displayTeamMembers();
-    })
   };
 
-// menu options for manger to choose, add more team members or finish
-menuConfirm = () => {
-  return inquirer.prompt([
-    {
-      type: "confirm",
-      name: "addEmployee",
-      message: "Would you like to add more employees to your team profile page?",
-      default: true
-    }
-  ])
-};
-  
-// when adding more members, manager will select role, and then answer proper questions
-addTeamMembers = () => {
-  return inquirer.prompt([
-    {
-      type: 'input',
-      name: 'name',
-      message: 'What is the name of your team member? (Required)',
-      validate: addName => {
-        if (addName){
-          return true;
-        } else {
-          console.log('You must enter a name for your team member!');
-        }
-      }
-    },
-    {
-      type: 'input',
-      name: 'id',
-      message: 'What is the employee id for your team member? (Required)',
-      validate: addId => {
-         if (addId){
-          return true;
-        } else {
-          console.log('You must enter an employee id for your team member!');
-        }
-      }
-    },
-    {
-      type: 'list',
-      name: 'role',
-      message: 'What is the role of your employee?',
-      choices: ['Engineer', 'Intern']
-    },
-    {
-      type: 'input',
-      name: 'email',
-      message: 'Enter the email address of your employee. (Required)'
-    },
-    {
-      type: 'input',
-      name: 'engineerGithub',
-      message: 'Enter the GitHub username for your engineer: (Required)',
-      when: ({role}) => {
-        if (role === 'Engineer'){
-          return true;
-        } else {
-          return false;
-        }
-      },
-    },
-    {
-      type: 'input',
-      name: 'internSchool',
-      message: 'Enter the school name of your intern: (Required)',
-      when: ({role}) => {
-        if (role === 'Intern'){
-          return true;
-        } else { 
-          return false;
-        }
-      },
-    }
-  ]);
-};
 
-// generate team profile using prompt answers;
-createTeamProfile(){
-      let team = {};
-      let managerInfo = this.questionsForManager;
-    }
-      {
-        type: 'confirm',
-        name: 'confirmAddTeamMember',
-        message: 'Would you like to add another team member?',
-        default: false,
-        when: ({ confirmAddTeamMember }) => confirmAddTeamMember
-      }
-    ],
-
-    .then(profilePage => {
-      profileData.teamMembers.push(profilePage);
-      if (profilePage.confirmAddTeamMember) {
-        return promptAddTeamMember(profileData);
-      } else {
-        return profileData;
-      }
-    });
-  };
-
-promptUser()
-  .then(promptAddTeamMember)
-  .then(profileData => {
-  return generatePage(profileData);
-  })
-  
-  .then(pageHTML => {
-  return writeFile(pageHTML);
-  })
-  
-  .then(writeFileResponse => {
-  console.log(writeFileResponse);
-    return copyFile();
-  })
-  
-  .then(copyFileResponse => {
-    console.log(copyFileResponse);
-  })
-  
-  .catch(err => {
+// Run application once user types node index.js in command line
+promptManager()
+ .then( () => {compileTeam()})  
+ .catch(err => {
     console.log(err);
   });
 
