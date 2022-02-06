@@ -1,5 +1,10 @@
+// Will hold all the generated html strings below into one string which will be used as a template literal in generatePage()
 let htmlString = '';
 
+// Each employee response from the prompt will generate html
+// Manager will always be appear first in the htmlString. 
+// Not only is the prompt answered first, but
+// The sortOrder "1" is determined in the lib/Manager.js file.
 const managerDiv = (Manager) => {
   return `
         <div class="col-sm-3">
@@ -17,6 +22,10 @@ const managerDiv = (Manager) => {
         </div>`
 };
 
+// Engineers and Interns are menu options; the person answering the prompts
+// can input in ANY order, however because of the sortOrder value attributed to each
+// in lib/Engineer.js and lib/Intern.js, Engineers will be sorted into a group "2" and
+// appear after a Manager in the generated htmlString.
 const engineerDiv = (Engineer) => {
   return `
   <div class="col-sm-3">
@@ -34,6 +43,7 @@ const engineerDiv = (Engineer) => {
   </div>`
 };
 
+// Interns always follow the Engineers and Manager, as sortOrder "3" in the htmlString.
 const internDiv = (Intern) => {
   return `        
   <div class="col-sm-3">
@@ -51,8 +61,10 @@ const internDiv = (Intern) => {
 </div>`
 };
 
+
+// This function puts together the answers from the team array from index.js.
 constructTeam = async (team) => {
-  
+  // sort helps determine which comes first no matter which order the team members were entered.
   team.sort((a, b) => {
     if (a.sortOrder < b.sortOrder) {
       return -1
@@ -65,6 +77,7 @@ constructTeam = async (team) => {
     }
   })
   
+  //htmlString is generated from this for() loop, iterating through team[].
   for(var i = 0; i < team.length; i++){
     if(team[i].getRole() === "Manager"){
       htmlString = htmlString.concat(managerDiv(team[i]));
@@ -78,6 +91,9 @@ constructTeam = async (team) => {
   }
 };
 
+// This function creates the entire index.html file; it contains the body template 
+// and has a template literal for ${htmlString} allowing the index.html file to reflect
+// the information answered from the prompts and display in a set order.
 const generatePage = (team) => {
   constructTeam(team);
   return `
