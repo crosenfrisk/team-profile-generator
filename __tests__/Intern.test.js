@@ -1,12 +1,13 @@
 const Intern = require('../lib/Intern.js');
 const Employee = require('../lib/Employee.js');
 
-test('Using Employee properties, Intern should have name, id, and email', () => {
+test('Using Employee properties, Intern should have name, id, email, and school', () => {
     const intern = new Intern('Ingrid');
   
     expect(intern).toHaveProperty('name');
     expect(intern).toHaveProperty('id');
     expect(intern).toHaveProperty('email');
+    expect(intern).toHaveProperty('school');
   
   })
   
