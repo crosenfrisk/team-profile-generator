@@ -52,6 +52,19 @@ const internDiv = (Intern) => {
 };
 
 constructTeam = async (team) => {
+  
+  team.sort((a, b) => {
+    if (a.sortOrder < b.sortOrder) {
+      return -1
+    }
+    if (a.sortOrder > b.sortOrder) {
+      return 1;
+    }
+    if (a.sortOrder === b.sortOrder) {
+      return 0;
+    }
+  })
+  
   for(var i = 0; i < team.length; i++){
     if(team[i].getRole() === "Manager"){
       htmlString = htmlString.concat(managerDiv(team[i]));

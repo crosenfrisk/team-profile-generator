@@ -114,7 +114,7 @@ addIntern = async () => {
     },
     {
       type: 'input',
-      name: 'internSchool',
+      name: 'school',
       message: 'Enter the school name of your intern: (Required)'
     }
   ])
