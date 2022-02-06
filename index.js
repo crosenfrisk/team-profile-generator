@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 
 // Required file locations
 const fs = require('fs');
-const generatePage = require('./src/page-template-copy');
+const generatePage = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site');
 const { profile } = require('console');
 
@@ -127,7 +127,7 @@ addIntern = async () => {
 
 // End program and communicate in console that profile is being created.
 finish = async () => {
-  console.log('Your team profile is being generated!');
+  console.log('Your team profile is being generated! Please see the /dist folder for your file, saved as `index.js`. ');
   teamProfilePage();
 }
 
