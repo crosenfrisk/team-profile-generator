@@ -3,7 +3,7 @@ let htmlString = '';
 const managerDiv = (Manager) => {
   return `
         <div class="col-sm-3">
-          <div class="card" style="width: 20rem">
+          <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 20rem">
             <div class="card-body">
               <h5 class="card-title">${Manager.name}</h5>
               <p class="card-text"><img src="../images/svg/star-solid.svg"> ${Manager.getRole()}</p>
@@ -20,7 +20,7 @@ const managerDiv = (Manager) => {
 const engineerDiv = (Engineer) => {
   return `
   <div class="col-sm-3">
-    <div class="card" style="width: 20rem">
+    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 20rem">
       <div class="card-body">
         <h5 class="card-title">${Engineer.name}</h5>
         <p class="card-text"><img src="../images/svg/glasses-solid.svg"> ${Engineer.getRole()}</p>
@@ -37,7 +37,7 @@ const engineerDiv = (Engineer) => {
 const internDiv = (Intern) => {
   return `        
   <div class="col-sm-3">
-  <div class="card" style="width: 20rem">
+  <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 20rem">
     <div class="card-body">
       <h5 class="card-title">${Intern.name}</h5>
       <p class="card-text"><img src="../images/svg/user-graduate-solid.svg"> ${Intern.getRole()}</p>
